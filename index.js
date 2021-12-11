@@ -8,9 +8,16 @@ const cors = require('cors');
 const port = process.env.PORT;
 
 
-//middlewear setup
+//include routes
 
+const userRaout = require('./routs/UserRout');
+
+
+
+//middlewear setup
 app.use(cors());
+
+app.use("/api/user" , userRaout);
 
 //defaut raout
 //method = get
