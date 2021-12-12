@@ -209,6 +209,20 @@ router.post("/login",
                       })
 
                 }
+                //Genret Json web Token
+
+                const authToken= jwt.sign(
+                    {
+                        id:user._id,
+                        username:user.username,
+                        email:user.email
+                    },
+                    token_key,
+                    {
+                        expiresIn:3600
+                    }
+                )
+
                 return res.status(200).json({
                     status:true,
                     massage:"User Login Sucessfully",
@@ -216,10 +230,9 @@ router.post("/login",
                         id:user._id,
                         username:user.username,
                         email:user.email,
-
-
-                    }
-                   })
+                         },
+                        token: authToken
+    })
              
      }
      }).catch(error => {
