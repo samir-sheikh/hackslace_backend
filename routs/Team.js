@@ -102,10 +102,43 @@ const newTeam = new Team( {
 
    })
 
-   
+   });
 
-   
-});
+//all team raouts
+
+//all team raout
+//method = get
+//access = pulic
+
+router.get("/allTeam", (req , res) => {
+
+    Team.find({}, {_id:0, __v:0,createdAt:0}).populate("user",["username"]).then(teams => {
+
+        return res.status(200).json({
+            status:true,
+            team:teams
+    
+        })
+
+    }).catch(err => {
+        return res.status(500).json({
+            status:false,
+            massage:"Database Error",
+            error:{
+                db_error:"some error in database"
+            }
+          
+    
+        })
+    
+
+    })
+
+
+    
+})
+
+
 
 
 
