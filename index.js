@@ -13,6 +13,7 @@ const database = require('./database');
 //include routes
 
 const userRaout = require('./routs/UserRout');
+const teamRaout = require('./routs/Team')
 
 
 
@@ -20,6 +21,7 @@ const userRaout = require('./routs/UserRout');
 app.use(cors());
 
 app.use("/api/user" , userRaout);
+app.use("/api/team" , teamRaout);
 
 //defaut raout
 //method = get
