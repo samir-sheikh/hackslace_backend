@@ -14,6 +14,7 @@ const database = require('./database');
 
 const userRaout = require('./routs/UserRout');
 const teamRaout = require('./routs/Team')
+const chatRaout = require('./routs/Chatraout')
 
 
 
@@ -22,6 +23,7 @@ app.use(cors());
 
 app.use("/api/user" , userRaout);
 app.use("/api/team" , teamRaout);
+app.use("/api/chat" , chatRaout);
 
 //defaut raout
 //method = get
