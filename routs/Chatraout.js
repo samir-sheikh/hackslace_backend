@@ -101,7 +101,92 @@ const newChat = new Chat({
    })
 
     
-})
+});
+
+//get all the chat from team member
+//method:post,
+// acess:Private,
+// url:/api/chat/getTeamUser
+
+router.post('/getTeamUser',
+
+verifyToken,
+[
+    check("team").not().isEmpty().withMessage("Please Enter Team Id").trim().escape()
+   
+],
+
+
+(req , res) => {
+
+    const errors = validationResult(req);
+
+    if(!errors.isEmpty()){
+       
+        let error ={};
+        for(index=0; index < errors.array().length; index++){
+            error = {
+                ...error,
+                [errors.array()[index].param]:errors.array()[index].msg
+            }
+        } 
+        return res.status(400).json({
+            status:false,
+            massage:"Form Validation Error..",
+            error:error
+    
+        })
+}
+ //get all team user
+
+ Chat.find({team: req.body.team }).distinct("from").then(user => {
+   
+    return res.status(200).json({
+                status:true,
+                massage:"This User send this message",
+                user:user
+               })
+ }).catch(err => {
+
+    return res.status(500).json({
+        status:false,
+        massage:"Database Error",
+        error:{
+            db_error:"some error in database last"
+        }
+      
+
+    })
+
+ })
+
+//    newChat.save().then(chat => {
+       
+//     return res.status(200).json({
+//         status:true,
+//         massage:"message save sucessfully......",
+//         chat:chat
+//        })
+
+
+//    }).catch(error => {
+
+//    console.log(error);
+       
+//     return res.status(500).json({
+//         status:false,
+//         massage:"Database Error",
+//         error:{
+//             db_error:"some error in database last"
+//         }
+      
+
+//     })
+
+//    })
+
+    
+});
 
 
 
